@@ -11,8 +11,8 @@
  * A C++ implementation to demonstrate simple receipt of messages over the ROS system.
  */
 
-#include "ros/ros.h"
-#include "std_msgs/String.h"
+#include <ros/ros.h>
+#include <std_msgs/String.h>
 
 /**
  * @brief The subscribed messages are processed in this callback function.
@@ -40,7 +40,7 @@ int main(int argc, char **argv) {
   /// The topic "chatter" is subscribed using the subscribe() function.
   ros::Subscriber sub = n.subscribe("chatter", 1000, chatterCallback);
 
-  /// ros::spin() will enter a loop, pumping callbacks; until the node is shutdown.
+  /// ros::spin() enters a loop, pumping callbacks, until the node is shutdown.
   ros::spin();
 
   return 0;

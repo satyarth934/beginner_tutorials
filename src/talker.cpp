@@ -11,8 +11,8 @@
  * A C++ implementation to demonstrate simple sending of messages over the ROS system.
  */
 
-#include "ros/ros.h"
-#include "std_msgs/String.h"
+#include <ros/ros.h>
+#include <std_msgs/String.h>
 
 #include <sstream>
 
@@ -29,7 +29,7 @@ int main(int argc, char **argv) {
   /// Creating an instance of the NodeHandle.
   ros::NodeHandle n;
 
-  /// Creating a publisher with the topic name as "chatter" and buffer size as 1000.
+  /// Creating a publisher with the topic name "chatter" and buffer size 1000.
   ros::Publisher chatter_pub = n.advertise<std_msgs::String>("chatter", 1000);
 
   /// Defining the loop_rate to be 10.
@@ -38,7 +38,6 @@ int main(int argc, char **argv) {
   /// To count the number of messages sent.
   int count = 0;
   while (ros::ok()) {
-    
     /// This is the message object that is published on the "chatter" topic.
     std_msgs::String msg;
 
@@ -48,12 +47,12 @@ int main(int argc, char **argv) {
 
     ROS_INFO("%s", msg.data.c_str());
 
-    /// The publish() function is used to publish the messages over the "chatter" topic.
+    /// The publish() function publishes the messages over the "chatter" topic.
     chatter_pub.publish(msg);
 
     ros::spinOnce();
 
-    /// Sleep for enough time to get the effective frequency as mentioned above (10hz). 
+    /// Sleeps at regular intervals to get desired effective frequency (10hz).
     loop_rate.sleep();
     ++count;
   }
