@@ -20,7 +20,17 @@
  * @return None.
  */
 void chatterCallback(const std_msgs::String::ConstPtr& msg) {
-  ROS_INFO("I heard: [%s]", msg->data.c_str());
+  if (msg->data == "Go Terps :D") {
+    ROS_INFO_STREAM("I heard: [" << msg->data.c_str() << "] Yaaaayyyyyy");
+  } else {
+    if (msg->data == "Go Terps") {
+      ROS_WARN_STREAM("I heard: [" << msg->data.c_str() << "] Show some excitement please !!");
+    } else if (msg->data == "Go PennState") {
+      ROS_FATAL_STREAM("I heard: [" << msg->data.c_str() << "] TRAITORRR !!!");
+    } else {
+      ROS_ERROR_STREAM("I heard: [" << msg->data.c_str() << "] CHANGE THE MESSAGE IMMEDIATELY!!!!");
+    }
+  }
 }
 
 /**
