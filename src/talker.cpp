@@ -48,7 +48,17 @@ int main(int argc, char **argv) {
   ROS_DEBUG_STREAM("Declaration of publisher and service successful.");
 
   /// Defining the loop_rate to be 10.
-  int looprate = 10;
+	int looprate = atoi(argv[1]);
+	if (looprate <= 0) {
+		ROS_FATAL_STREAM("INVALID LOOPRATE (Looprate should be > 0)");
+	} else if (looprate > 100) {
+		ROS_ERROR_STREAM("Looprate too high (Looprate should be <= 100 )");
+	} else if (looprate == 10) {
+		ROS_WARN_STREAM("Looprate value not provided. Using the default value (10).");
+	} else {
+		ROS_INFO_STREAM("Looprate : " << looprate);
+	}
+	
   ros::Rate loop_rate(looprate);
   while (ros::ok()) {
     ROS_DEBUG_STREAM("Publishing Message: " << str_msg);
