@@ -8,8 +8,10 @@
  * @version 1.0
  * @brief   Subscriber Node
  * @section DESCRIPTION
- * A C++ implementation to demonstrate simple receipt of messages over the ROS system.
+ * A C++ implementation to demonstrate the usage of services, logging, 
+ * and using command-arguments.
  */
+
 
 #include <ros/ros.h>
 #include <std_msgs/String.h>
@@ -20,12 +22,26 @@
  * @return None.
  */
 void chatterCallback(const std_msgs::String::ConstPtr& msg) {
-  ROS_INFO("I heard: [%s]", msg->data.c_str());
+  if (msg->data == "Go Terps :D") {
+    ROS_INFO_STREAM("I heard: [" << msg->data.c_str() <<
+          "] Yaaaayyyyyy");
+  } else {
+    if (msg->data == "Go Terps") {
+      ROS_WARN_STREAM("I heard: [" << msg->data.c_str() <<
+          "] Show some excitement please !!");
+    } else if (msg->data == "Go Lions") {
+      ROS_FATAL_STREAM("I heard: [" << msg->data.c_str() <<
+          "] TRAITORRR !!!");
+    } else {
+      ROS_ERROR_STREAM("I heard: [" << msg->data.c_str() <<
+          "] CHANGE THE MESSAGE IMMEDIATELY!!!!");
+    }
+  }
 }
 
 /**
- * @bried Implementation of the subscriber module to demonstrate simple receipt of 
- * messages over the ROS system.
+ * @bried Implementation of the subscriber module to demonstrate 
+ * simple receipt of messages over the ROS system.
  * @param argc Count of parameters passes in the commandline argument.
  * @param argv An array of all commandline arguments.
  * @return 0 Return 0 for successful execution.
