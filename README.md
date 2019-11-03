@@ -21,34 +21,33 @@ This package has been tested in a system with following dependencies.
 ## Build Instructions
 
 1) Install ROS-Kinetic (http://wiki.ros.org/kinetic/Installation/Ubuntu)
-2) Download and build this package as follows:
+2) Download and checkout to the relevant branch:
 ```
 source /opt/ros/kinetic/setup.bash
 mkdir -p ~/catkin_ws/src
 cd ~/catkin_ws/src
 git clone https://github.com/satyarth934/beginner_tutorials.git
+cd beginner_tutorials
+git checkout Week10_HW
+```
+3) Build and source the package:
+```
 cd ~/catkin_ws
 catkin_make
+source devel/setup.bash
 ```
 
 ## Run Instructions
 
-1) Start `roscore`.
+1) Launch the launch file with a `looprate_arg` parameter specifying the loop rate of the publisher node.
 ```
-source /opt/ros/kinetic/setup.bash
-roscore
-```
-
-2) In a new terminal, run the `talker` node from the `beginner_tutorials` package to start publishing the data.
-```
-cd ~/catkin_ws
-source devel/setup.bash
-rosrun beginner_tutorials talker
-```
-3) In another new terminal, run the `listener` node from the `beginner_tutorials` package to subscribe and process the publisher data.
-```
-cd ~/catkin_ws
-source devel/setup.bash
-rosrun beginner_tutorials listener
+roslaunch beginner_tutorials beginner_tutorials.launch looprate_arg:=15
 ```
 
+2) In a new terminal, run the call the service using rosservice command-line tool.
+```
+rosservice call /change_string "Go Terps :D"
+rosservice call /change_string "Go Terps"
+rosservice call /change_string "Go Dogs"
+rosservice call /change_string "Go Lions"
+```
