@@ -1,0 +1,5 @@
+<launch>
+	<arg name="looprate_arg" default="10"/>
+	<node pkg="beginner_tutorials" type="talker" name="publisher_node" args="$(arg looprate_arg)"/>
+	<node pkg="beginner_tutorials" type="listener" name="subscriber_node" />
+</launch>
