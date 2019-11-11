@@ -8,11 +8,12 @@
  * @version 1.0
  * @brief   Publisher Node
  * @section DESCRIPTION
- * A C++ implementation to demonstrate the usage of services, logging, and using command-arguments.
+ * A C++ implementation to demonstrate the usage of services, logging, using command-arguments, TF, unit-testing, and bag files.
  */
 
 #include <ros/ros.h>
 #include <std_msgs/String.h>
+#include <tf/transform_broadcaster.h>
 #include <beginner_tutorials/ChangeString.h>
 
 /**
@@ -34,6 +35,17 @@ bool changeString(beginner_tutorials::ChangeString::Request  &req,
   res.out_msg = req.in_msg;
   str_msg = req.in_msg;
   return true;
+}
+
+void broadcast() {
+  static tf::TransformBroadcaster br;
+  tf::Transform transform;
+  transform.setOrigin(tf::Vector3(1.0, 2.0, 3.0));
+  tf::Quaternion q;
+  q.setRPY(0.5, 0.5, 0.5);
+  transform.setRotation(q);
+  br.sendTransform(
+    tf::StampedTransform(transform, ros::Time::now(), "world", "talk"));
 }
 
 /**
@@ -85,6 +97,10 @@ int main(int argc, char **argv) {
 
     /// The publish() function publishes the messages over the "chatter" topic.
     chatter_pub.publish(msg);
+
+    /// broadcaster
+    broadcast();
+
     ros::spinOnce();
 
     /// Sleeps at regular intervals to get desired effective frequency (10hz).
