@@ -1,10 +1,14 @@
 <launch>
   <!-- Command-line argument is stores in this argument variable -->
-	<arg name="looprate_arg" default="10"/>
+  <arg name="looprate_arg" default="10"/>
 	
-	<!-- Launch the talker node -->
-	<node pkg="beginner_tutorials" type="talker" name="publisher_node" args="$(arg looprate_arg)"/>
+  <!-- Launch the talker node -->
+  <node pkg="beginner_tutorials" type="talker" name="publisher_node" args="$(arg looprate_arg)"/>
 	
   <!-- Launch the listener node -->
-	<node pkg="beginner_tutorials" type="listener" name="subscriber_node" />
+  <node pkg="beginner_tutorials" type="listener" name="subscriber_node" />
+
+  <!-- Launch a rosbag recorder -->
+  <arg name="recordBag" default="false" />
+  <node pkg="rosbag" name="data_bag" type="record" args="--duration=15 -a -O $(find beginner_tutorials)/results/Data.bag" if="$(arg recordBag)" />
 </launch>
