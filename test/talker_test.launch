@@ -1,0 +1,8 @@
+<launch>
+  <!-- Launch the talker node -->
+  <arg name="looprate_arg" default="10"/>
+  <node pkg="beginner_tutorials" type="talker" name="publisher_node" args="$(arg looprate_arg)"/>
+
+  <!-- Launch the talker_test node -->
+  <test pkg="beginner_tutorials" type="talker_test" test-name="talker_test"/>
+</launch>
